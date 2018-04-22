@@ -22,7 +22,7 @@ export default function reducer(playersState = initialState, action) {
     switch (action.type) {
         case 'LOAD_PLAYERS':
             return {
-                players: [...playersState.wr, playersState.wr],
+                players: [...playersState.players, playersState.players],
                 loading: true,
                 error: null,
                 wr: [...playersState.wr, action.wr],
@@ -34,6 +34,7 @@ export default function reducer(playersState = initialState, action) {
             return {
                 loading: false,
                 error: action.error,
+                players: playersState.players,
                 wr: playersState.wr,
                 qb: playersState.qb,
                 rb: playersState.rb,
@@ -43,13 +44,14 @@ export default function reducer(playersState = initialState, action) {
             return {
                 loading: false,
                 error: null,
+                players: playersState.players,
                 wr: playersState.wr,
                 qb: playersState.qb,
                 rb: playersState.rb,
                 te: playersState.te
             }
     }
-    return playersState
+    return null
 }
 
 

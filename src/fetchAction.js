@@ -50,7 +50,7 @@ export const fetchPlayers = () => {
                 let formattedRespObj = formatRespObj(response.players);
                 dispatch(loadPlayers(formattedRespObj));
                 console.log('success:', formattedRespObj);
-                dispatch(fetchPlayersSuccess(response))
+                dispatch(fetchPlayersSuccess(response.players))
             });
     }
 };
