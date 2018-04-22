@@ -16,9 +16,10 @@ class Intro extends Component {
     else if (this.props.error) {
       return <div>Error! {this.props.error}</div>;
     }
-    if (this.props.players){
-      console.log(this.props)
-      const playerNames = this.props.players.map(player => (
+
+
+    renderPlayers = () => { 
+      this.props.players.map(player => (
         <div key={player.id}>
           <h3>{player.name} {player.position}</h3>
           <p>{player.seasonPts}</p>
