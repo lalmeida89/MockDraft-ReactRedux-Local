@@ -57,7 +57,7 @@ class Intro extends React.Component {
 
   displayTES = () => {
     this.props.dispatch(showTE(this.props.te));
-    console.log('fucking work god damn it')
+    console.log(this.props, 'fucking work god damn it')
   }
 
 

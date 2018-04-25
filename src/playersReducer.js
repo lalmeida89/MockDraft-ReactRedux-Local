@@ -41,24 +41,24 @@ export default function reducer(playersState = initialState, action) {
 
         case 'SHOW_QB' :
           console.log(action);
-          return {
+          return Object.assign({}, playersState, {
             displayPlayers: playersState.qb
-          };
+          });
         case 'SHOW_WR' :
           console.log(action);
-          return {
+          return Object.assign({}, playersState, {
             displayPlayers: playersState.wr
-          };
+          });
         case 'SHOW_RB' :
           console.log(action);
-          return {
+          return Object.assign({}, playersState, {
             displayPlayers: playersState.rb
-          };
+          });
         case 'SHOW_TE' :
           console.log(action);
-          return {
+          return Object.assign({}, playersState, {
             displayPlayers: playersState.te
-          };
+          });
         case 'FETCH_PLAYERS_ERROR':
           return {
             loading: true,
