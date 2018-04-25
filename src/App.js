@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Posts from './components/post';
-import PostForm from './components/postForm';
 import Intro from './components/intro'
 
 class App extends Component {

@@ -1,3 +1,7 @@
+.postSelector {
+  cursor: pointer;
+}
+
 .App {
   width: 90%;
   margin: auto;

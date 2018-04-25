@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-
-import reducer from './reducer';
+import {Provider} from 'react-redux'
+import reducer from './playersReducer';
 
 // No middleware
 // export default createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

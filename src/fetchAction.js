@@ -1,3 +1,4 @@
+
 export const loadPlayers = formattedRespObj => ({
     type: 'FETCH_PLAYERS_SUCCESS',
     players: formattedRespObj.players,
@@ -12,7 +13,7 @@ function formatRespObj(playersResp) {
 
     // Note, this can probably be prettier
     for (let i = 0; i < playersResp.length; i++) {
-        
+
         switch (playersResp[i].position) {
             case 'WR':
                 formattedRespObj.wr.push(playersResp[i]);
@@ -31,8 +32,8 @@ function formatRespObj(playersResp) {
         }
     }
 
-    formattedRespObj.players = [...formattedRespObj.wr, ...formattedRespObj.qb, ...formattedRespObj.rb, ...formattedRespObj.te];
-
+    //formattedRespObj.players = [...formattedRespObj.wr, ...formattedRespObj.qb, ...formattedRespObj.rb, ...formattedRespObj.te];
+    //formattedRespObj.players = { wr: formattedRespObj.wr,}
     return formattedRespObj;
 }
 
@@ -40,17 +41,18 @@ export const fetchPlayers = () => {
     return dispatch => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const url = "http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats&season=2017&format=json"; // site that doesn’t send Access-Control-*
+        dispatch(fetchPlayersRequest())
         fetch(proxyurl + url)
             .then(res => res.json())
-            .catch(error => {
-                console.error('Error:', error);
-                dispatch(fetchPlayersError(error));
-            })
             .then(response => {
                 let formattedRespObj = formatRespObj(response.players);
                 dispatch(loadPlayers(formattedRespObj));
                 console.log('success:', formattedRespObj);
-                dispatch(fetchPlayersSuccess(response.players))
+                //dispatch(fetchPlayersSuccess(response.players))
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                dispatch(fetchPlayersError(error));
             });
     }
 };
@@ -61,8 +63,8 @@ export const fetchPlayersError = error => ({
     error
 });
 
-export const FETCH_PLAYERS_SUCCESS = 'FETCH_PLAYERS_SUCCESS';
-export const fetchPlayersSuccess = players => ({
-    type: FETCH_PLAYERS_SUCCESS,
-    players
+export const FETCH_PLAYERS_REQUEST = 'FETCH_PLAYERS_ERROR';
+export const fetchPlayersRequest = loading => ({
+    type: FETCH_PLAYERS_REQUEST,
+    loading
 });
