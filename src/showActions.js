@@ -22,7 +22,7 @@ export const showTE = displayPlayers => ({
     type: SHOW_TE,
     displayPlayers
 });
-
+/*
 export const setPosition = array => {
   return dispatch => {
     for (let i=0 ; i<array.length ; i++){
@@ -42,7 +42,7 @@ export const setPosition = array => {
   }
 }
 
-/*export const showPlayers = currentPosition =>{
+export const showPlayers = currentPosition =>{
   return dispatch => {
     for (let i=0; i<currentPosition.length; i++){
       if (currentPosition[i].position == 'QB'){
