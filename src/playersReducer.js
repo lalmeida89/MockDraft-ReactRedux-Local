@@ -25,7 +25,7 @@ const initialState = {
     te: [],
     displayPlayers: [],
     currentPlayer: 0,
-    playerProfile: []
+    playerProfile: null
 };
 
 export default (playersState = initialState, action) => {
