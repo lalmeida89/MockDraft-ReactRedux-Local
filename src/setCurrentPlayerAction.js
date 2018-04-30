@@ -1,18 +1,18 @@
 export const SET_CURRENT_PLAYER = 'SET_CURRENT_PLAYER';
 export const SET_PLAYER_PROFILE = 'SET_PLAYER_PROFILE';
 
-export function setCurrentPlayer(id) {
+export const setCurrentPlayer = id => {
   console.log(id);
   return {
     type: SET_CURRENT_PLAYER,
-    id,
+    id
   };
 }
 
-export function setPlayerProfile(profile) {
+export const setPlayerProfile = profile => {
   return {
     type: SET_PLAYER_PROFILE,
-    profile,
+    profile
   };
 }
 

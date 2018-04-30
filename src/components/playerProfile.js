@@ -6,14 +6,14 @@ class PlayerProfile extends React.Component {
     if(!this.props.profile){
       return null
     }
-    if (this.props.profile !== undefined ){
+    else if (this.props.profile){
+      console.log(this.props.profile.notes)
       let profile = this.props.profile;
-      console.log(profile.notes)
       return (
         <div>
           <h1>{profile.name} {profile.position}</h1>
           <h2>{profile.status}</h2>
-          <p>{profile.jerseyNumber}</p>
+          <h4> notes </h4>
         </div>
       )
     }
@@ -23,7 +23,7 @@ class PlayerProfile extends React.Component {
 export const mapStateToProps = (state, props) => {
   console.log(state, props);
   return ({
-    profile: state.profile
+    profile: state.playerProfile
   })
 }
 export default connect (mapStateToProps)(PlayerProfile)

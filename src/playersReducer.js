@@ -25,7 +25,7 @@ const initialState = {
     te: [],
     displayPlayers: [],
     currentPlayer: 0,
-    profile: []
+    playerProfile: []
 };
 
 export default (playersState = initialState, action) => {
@@ -93,7 +93,7 @@ export default (playersState = initialState, action) => {
         case 'SET_PLAYER_PROFILE':
           console.log(action, playersState)
           return {
-            profile: action.profile,
+            playerProfile: action.profile,
             loading: false,
             error: null,
             players: playersState.players,
@@ -112,7 +112,7 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
-            profile: playersState.profile
+            playerProfile: playersState.playerProfile
           }
         }
     return playersState;
