@@ -1,19 +1,3 @@
-import {
-    FETCH_PLAYERS_REQUEST,
-    FETCH_PLAYERS_ERROR,
-} from './fetchAction';
-
-import {
-  SHOW_TE,
-  SHOW_RB,
-  SHOW_WR,
-  SHOW_QB
-} from './showActions'
-
-import {
-  SET_CURRENT_PLAYER,
-  SET_PLAYER_PROFILE
-} from './setCurrentPlayerAction'
 
 const initialState = {
     players: [],
@@ -65,6 +49,11 @@ export default (playersState = initialState, action) => {
           return Object.assign({}, playersState, {
             displayPlayers: playersState.te
           });
+        case 'SHOW_ALL' :
+          console.log(action);
+          return Object.assign({}, playersState, {
+            displayPlayers: playersState.players
+          });
         case 'FETCH_PLAYERS_ERROR':
           return {
             loading: true,
@@ -89,6 +78,12 @@ export default (playersState = initialState, action) => {
           console.log(action);
           return Object.assign({}, playersState, {
             currentPlayer: action.id
+          });
+        case 'HIDE_PLAYER_PROFILE':
+          console.log(action);
+          return Object.assign({}, playersState, {
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'SET_PLAYER_PROFILE':
           console.log(action, playersState)

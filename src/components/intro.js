@@ -2,12 +2,13 @@ import React  from 'react';
 import {connect} from 'react-redux';
 
 import {fetchPlayers} from '../fetchAction'
-import {setCurrentPlayer, getPlayerProfile} from '../setCurrentPlayerAction'
+import {getPlayerProfile} from '../setCurrentPlayerAction'
 import {
   showQB,
   showRB,
   showWR,
-  showTE
+  showTE,
+  showAll
 } from '../showActions'
 
 
@@ -19,20 +20,20 @@ const sort_by = (field, reverse, primer) => {
     reverse = !reverse ? 1 : -1;
 
     return function (a, b) {
-       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+       return a = key(a), b = key(b), reverse * ((a < b) - (b < a));
     }
 }
 
 const ShowPlayers = props => {
   console.log(props)
-  props.players.sort(sort_by('seasonPts', true, parseInt));
+  props.players.sort(sort_by('rank', true, parseInt));
   let playerNames = props.players.map((player, index) => (
-    <div key={index}>
+    <div key={index} className='playerSelector'>
       <h3
       onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
-      {player.name} {player.position}
+      {player.firstName} {player.lastName} {player.position}
       </h3>
-      <p>{player.seasonPts}</p>
+      <p>ADP: {player.rank}</p>
       </div>
     ))
   return <div>{playerNames}</div>
@@ -66,6 +67,11 @@ class Intro extends React.Component {
     console.log(this.props, 'fucking work god damn it')
   }
 
+  displayAll = () => {
+    this.props.dispatch(showAll(this.props.players));
+    console.log(this.props, 'fucking work god damn it')
+  }
+
 
 
   render() {
@@ -81,6 +87,7 @@ class Intro extends React.Component {
     else {
       return (
         <div>
+          <button onClick={()=>this.displayAll()}>show all players </button>
           <button onClick={()=>this.displayQBS()}>show qbs </button>
           <button onClick={()=>this.displayRBS()}>show rbs </button>
           <button onClick={()=>this.displayWRS()}>show wrs </button>

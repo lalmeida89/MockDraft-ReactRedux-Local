@@ -40,11 +40,13 @@ function formatRespObj(playersResp) {
 export const fetchPlayers = () => {
     return dispatch => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const url = "http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats&season=2017&format=json"; // site that doesn’t send Access-Control-*
+        const url = "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=100&format=json";
+        //const url="http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats&season=2017&format=json"; // site that doesn’t send Access-Control-*
         dispatch(fetchPlayersRequest())
         fetch(proxyurl + url)
             .then(res => res.json())
             .then(response => {
+                console.log(response.players);
                 let formattedRespObj = formatRespObj(response.players);
                 dispatch(loadPlayers(formattedRespObj));
                 console.log('success:', formattedRespObj);

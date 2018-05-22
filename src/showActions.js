@@ -2,6 +2,7 @@ export const SHOW_QB = 'SHOW_QB';
 export const SHOW_WR = 'SHOW_WR';
 export const SHOW_RB = 'SHOW_RB';
 export const SHOW_TE = 'SHOW_TE';
+export const SHOW_ALL= 'SHOW_ALL';
 
 export const showQB = displayPlayers => ({
     type: SHOW_QB,
@@ -20,6 +21,11 @@ export const showWR = displayPlayers => ({
 
 export const showTE = displayPlayers => ({
     type: SHOW_TE,
+    displayPlayers
+});
+
+export const showAll = displayPlayers => ({
+    type: SHOW_ALL,
     displayPlayers
 });
 /*
