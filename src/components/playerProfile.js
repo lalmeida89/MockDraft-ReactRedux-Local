@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {hidePlayerProfile} from '../setCurrentPlayerAction';
+import {playerDrafted} from '../draftPlayersAction'
 
 
 function rearrangeDate(dateString) {
@@ -12,6 +13,12 @@ function rearrangeDate(dateString) {
 
 
 class PlayerProfile extends React.Component {
+
+  handleDrafting = (playerID) => {
+    this.props.dispatch(playerDrafted(playerID))
+    console.log(playerID);
+  }
+
   render(){
     if(!this.props.playerProfile){
       return null
@@ -25,7 +32,11 @@ class PlayerProfile extends React.Component {
         <div className='playerCard'>
           <p onClick={()=>this.props.dispatch(hidePlayerProfile())}
           style={{float:'right', cursor: 'pointer'}}>X</p>
-          <h1>{profile.name} {profile.position}</h1>
+          <h1 className='playerName'>{profile.name} {profile.position}</h1>
+          <button
+          onClick={()=> this.handleDrafting(profile.name)}
+          className='draftBtn'>Draft
+          </button>
           <h3>Notes</h3>
           <p>{timePosted}</p>
           <h4>{profile.notes[0].body}</h4>
@@ -40,7 +51,9 @@ class PlayerProfile extends React.Component {
 export const mapStateToProps = (state, props) => {
   console.log(state, props);
   return ({
-    playerProfile: state.playerProfile
+    playerProfile: state.playerProfile,
+    playersUsed: state.playersUsed,
+    team1: state.team1
   })
 }
 export default connect (mapStateToProps)(PlayerProfile)

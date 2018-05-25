@@ -9,7 +9,11 @@ const initialState = {
     te: [],
     displayPlayers: [],
     currentPlayer: 0,
-    playerProfile: null
+    playerProfile: null,
+    team1: [],
+    team2: [],
+    team3: [],
+    playersUsed: []
 };
 
 export default (playersState = initialState, action) => {
@@ -32,27 +36,37 @@ export default (playersState = initialState, action) => {
         case 'SHOW_QB' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.qb
+            displayPlayers: playersState.qb,
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'SHOW_WR' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.wr
+            displayPlayers: playersState.wr,
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'SHOW_RB' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.rb
+            displayPlayers: playersState.rb,
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'SHOW_TE' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.te
+            displayPlayers: playersState.te,
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'SHOW_ALL' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.players
+            displayPlayers: playersState.players,
+            currentPlayer: 0,
+            playerProfile: null
           });
         case 'FETCH_PLAYERS_ERROR':
           return {
@@ -98,6 +112,17 @@ export default (playersState = initialState, action) => {
             te: playersState.te,
             displayPlayers: playersState.displayPlayers
           };
+        case 'DRAFT_PLAYER':
+          console.log(action, playersState)
+          return {
+            playersUsed: action.player,
+            players: playersState.players,
+            wr: playersState.wr,
+            qb: playersState.qb,
+            rb: playersState.rb,
+            te: playersState.te,
+            displayPlayers: playersState.displayPlayers
+          }
         default:
           return {
             loading: true,
