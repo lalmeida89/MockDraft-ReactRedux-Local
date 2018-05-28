@@ -7,7 +7,6 @@ export const draftPlayer = teamPicksObj => ({
 
 export const teamPicks = player => {
   let teamPicksObj = {team1 : []}
-    //for (let i=0; i < teamPicksObj.team1.length; i++){
   teamPicksObj.team1.push(player)
   return teamPicksObj
 }
@@ -17,7 +16,5 @@ export const playerDrafted = (player) => {
     let teamPicksObj = teamPicks(player)
     dispatch(draftPlayer(teamPicksObj));
     console.log(player);
-
-    //teamArray.push(playerArray.player);
   }
 }

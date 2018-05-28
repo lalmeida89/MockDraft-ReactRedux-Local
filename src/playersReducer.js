@@ -119,15 +119,31 @@ export default (playersState = initialState, action) => {
             playersUsed: playersState.playersUsed
           };
         case 'DRAFT_PLAYER':
+          const withPlayersRemoved = playersState.players.filter(player => {
+            return player.id !== action.playersUsed[0].id
+          })
+          const wrPlayersRemoved = playersState.wr.filter(wr => {
+            return wr.id !== action.playersUsed[0].id
+          })
+          const rbPlayersRemoved = playersState.rb.filter(rb => {
+            return rb.id !== action.playersUsed[0].id
+          })
+          const qbPlayersRemoved = playersState.qb.filter(qb => {
+            return qb.id !== action.playersUsed[0].id
+          })
+          const tePlayersRemoved = playersState.te.filter(te => {
+            return te.id !== action.playersUsed[0].id
+          })
+          console.log(withPlayersRemoved)
           console.log(action, playersState);
           return {
             playersUsed: [...playersState.playersUsed, ...action.playersUsed],
-            players: playersState.players,
-            wr: playersState.wr,
-            qb: playersState.qb,
-            rb: playersState.rb,
-            te: playersState.te,
-            displayPlayers: playersState.displayPlayers,
+            players: withPlayersRemoved,
+            wr: wrPlayersRemoved,
+            qb: qbPlayersRemoved,
+            rb: rbPlayersRemoved,
+            te: tePlayersRemoved,
+            displayPlayers: withPlayersRemoved,
             team1: [...playersState.team1, ...action.team1]
           }
         default:
