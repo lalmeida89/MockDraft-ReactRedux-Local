@@ -11,8 +11,6 @@ const initialState = {
     currentPlayer: 0,
     playerProfile: null,
     team1: [],
-    team2: [],
-    team3: [],
     playersUsed: []
 };
 
@@ -30,7 +28,9 @@ export default (playersState = initialState, action) => {
             players: [...action.wr, ...action.qb, ...action.rb, ...action.te],
             displayPlayers: [...action.wr, ...action.qb, ...action.rb, ...action.te],
             loading: false,
-            error: null
+            error: null,
+            team1: playersState.team1,
+            playersUsed: playersState.playersUsed
           };
 
         case 'SHOW_QB' :
@@ -76,7 +76,9 @@ export default (playersState = initialState, action) => {
             wr: playersState.wr,
             qb: playersState.qb,
             rb: playersState.rb,
-            te: playersState.te
+            te: playersState.te,
+            team1: playersState.team1,
+            playersUsed: playersState.playersUsed
           };
         case 'FETCH_PLAYERS_REQUEST':
           return {
@@ -86,7 +88,9 @@ export default (playersState = initialState, action) => {
             wr: playersState.wr,
             qb: playersState.qb,
             rb: playersState.rb,
-            te: playersState.te
+            te: playersState.te,
+            team1: playersState.team1,
+            playersUsed: playersState.playersUsed
           };
         case 'SET_CURRENT_PLAYER':
           console.log(action);
@@ -110,18 +114,21 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
-            displayPlayers: playersState.displayPlayers
+            displayPlayers: playersState.displayPlayers,
+            team1: playersState.team1,
+            playersUsed: playersState.playersUsed
           };
         case 'DRAFT_PLAYER':
-          console.log(action, playersState)
+          console.log(action, playersState);
           return {
-            playersUsed: action.player,
+            playersUsed: [...playersState.playersUsed, ...action.playersUsed],
             players: playersState.players,
             wr: playersState.wr,
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
-            displayPlayers: playersState.displayPlayers
+            displayPlayers: playersState.displayPlayers,
+            team1: [...playersState.team1, ...action.team1]
           }
         default:
           return {
@@ -132,7 +139,9 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
-            playerProfile: playersState.playerProfile
+            playerProfile: playersState.playerProfile,
+            team1: playersState.team1,
+            playersUsed: playersState.playersUsed
           }
         }
     return playersState;

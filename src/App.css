@@ -38,6 +38,12 @@
   border: 1px dashed green;
   right: 0;
   top: 100px;
+  height: 400px;
+  display: block;
+}
+
+.rostersDiv {
+  list-style: none;
 }
 
 .App {

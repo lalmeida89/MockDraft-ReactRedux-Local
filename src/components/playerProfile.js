@@ -14,9 +14,9 @@ function rearrangeDate(dateString) {
 
 class PlayerProfile extends React.Component {
 
-  handleDrafting = (playerID) => {
-    this.props.dispatch(playerDrafted(playerID))
-    console.log(playerID);
+  handleDrafting = (player) => {
+    this.props.dispatch(playerDrafted(player))
+    console.log(player);
   }
 
   render(){
@@ -34,7 +34,7 @@ class PlayerProfile extends React.Component {
           style={{float:'right', cursor: 'pointer'}}>X</p>
           <h1 className='playerName'>{profile.name} {profile.position}</h1>
           <button
-          onClick={()=> this.handleDrafting(profile.name)}
+          onClick={()=> this.handleDrafting(profile)}
           className='draftBtn'>Draft
           </button>
           <h3>Notes</h3>
