@@ -75,6 +75,23 @@ class Intro extends React.Component {
 
 
   render() {
+    const PositionHeader = () => {
+      let playerPosition = this.props.displayPlayers
+      if (playerPosition == this.props.wr){
+        return (<div><h1>Wide Receivers</h1></div>)
+      }
+      else if (playerPosition == this.props.rb){
+        return (<div><h1>Running Backs</h1></div>)
+      }
+      else if (playerPosition == this.props.qb){
+        return (<div><h1>Quarterbacks</h1></div>)
+      }
+      else if (playerPosition == this.props.te){
+        return (<div><h1>Tight Ends</h1></div>)
+      }
+      else
+        return (<div><h1>All Players</h1></div>)
+    }
 
     const { error, loading } = this.props;
 
@@ -92,6 +109,7 @@ class Intro extends React.Component {
           <button onClick={()=>this.displayRBS()}>show rbs </button>
           <button onClick={()=>this.displayWRS()}>show wrs </button>
           <button onClick={()=>this.displayTES()}>show tes </button>
+          <PositionHeader />
           <ShowPlayers players={this.props.displayPlayers} currentId={this.props} />
         </div>
       )
