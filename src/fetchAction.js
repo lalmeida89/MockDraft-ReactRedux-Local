@@ -1,8 +1,8 @@
 
 export const loadPlayers = formattedRespObj => ({
     type: 'FETCH_PLAYERS_SUCCESS',
-    players: formattedRespObj.players,
-    wr: formattedRespObj.wr,
+    players: [...formattedRespObj.players],
+    wr: [...formattedRespObj.wr],
     qb: formattedRespObj.qb,
     rb: formattedRespObj.rb,
     te: formattedRespObj.te
@@ -32,7 +32,7 @@ function formatRespObj(playersResp) {
         }
     }
 
-    //formattedRespObj.players = [...formattedRespObj.wr, ...formattedRespObj.qb, ...formattedRespObj.rb, ...formattedRespObj.te];
+    formattedRespObj.players = [...formattedRespObj.wr, ...formattedRespObj.qb, ...formattedRespObj.rb, ...formattedRespObj.te];
     //formattedRespObj.players = { wr: formattedRespObj.wr,}
     return formattedRespObj;
 }
@@ -40,22 +40,24 @@ function formatRespObj(playersResp) {
 export const fetchPlayers = () => {
     return dispatch => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const url = "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=100&format=json";
-        //const url="http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats&season=2017&format=json"; // site that doesn’t send Access-Control-*
+        const urls = ["http://api.fantasy.nfl.com/v1/players/editordraftranks?count=100&format=json", "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json"];
+        //const url2="http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json"; // site that doesn’t send Access-Control-*
         dispatch(fetchPlayersRequest())
-        fetch(proxyurl + url)
-            .then(res => res.json())
-            .then(response => {
-                console.log(response.players);
-                let formattedRespObj = formatRespObj(response.players);
-                dispatch(loadPlayers(formattedRespObj));
-                console.log('success:', formattedRespObj);
+        urls.map(url=> {
+            fetch(proxyurl + url)
+                .then(res => res.json())
+                .then(response => {
+                    console.log(response.players);
+                    let formattedRespObj = formatRespObj(response.players);
+                    dispatch(loadPlayers(formattedRespObj));
+                    console.log('success:', formattedRespObj);
                 //dispatch(fetchPlayersSuccess(response.players))
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                dispatch(fetchPlayersError(error));
-            });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    dispatch(fetchPlayersError(error));
+                })
+        })
     }
 };
 

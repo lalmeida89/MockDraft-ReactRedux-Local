@@ -21,10 +21,10 @@ export default (playersState = initialState, action) => {
           console.log(action);
           return {
             ...playersState,
-            qb: [...action.qb],
-            wr: [...action.wr],
-            te: [...action.te],
-            rb: [...action.rb],
+            qb: [...playersState.qb,...action.qb],
+            wr: [...playersState.wr,...action.wr],
+            te: [...playersState.te,...action.te],
+            rb: [...playersState.rb,...action.rb],
             players: [...action.wr, ...action.qb, ...action.rb, ...action.te],
             displayPlayers: [...action.wr, ...action.qb, ...action.rb, ...action.te],
             loading: false,
