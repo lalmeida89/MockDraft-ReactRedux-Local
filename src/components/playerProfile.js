@@ -91,7 +91,7 @@ class PlayerProfile extends React.Component {
       else if (this.props.schedule == true) {
         for(let i = 0; i < profile.weeks.length ; i++){
           if (profile.weeks[i].opponent == false){
-            profile.weeks[i].opponent = "BYE"
+            profile.weeks[i].opponent = "--BYE--"
           }
         }
         return (
