@@ -18,3 +18,13 @@ export const playerDrafted = (player) => {
     console.log(player);
   }
 }
+
+/*
+teams = [userTeam : [], compTeam1 : []]
+  for( let i=0; i< teams.length ; i++){
+    if (user == teams[i]) {
+      
+    }
+  }
+
+*/

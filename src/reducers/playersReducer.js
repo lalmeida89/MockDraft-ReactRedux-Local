@@ -168,5 +168,4 @@ export default (playersState = initialState, action) => {
             schedule: playersState.schedule
           }
         }
-    return playersState;
 }

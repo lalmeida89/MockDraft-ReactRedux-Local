@@ -1,13 +1,14 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 
-import {fetchPlayers} from '../fetchAction'
-import {getPlayerProfile} from '../setCurrentPlayerAction'
+import {fetchPlayers} from '../actions/fetchAction'
+import {getPlayerProfile} from '../actions/setCurrentPlayerAction'
 import {
   showPosition
-} from '../showActions'
+} from '../actions/showActions'
 
-import {playerDrafted} from '../draftPlayersAction'
+import {playerDrafted} from '../actions/draftPlayersAction'
+
 
 
 const sort_by = (field, reverse, primer) => {
@@ -90,22 +91,22 @@ class Intro extends React.Component {
     const PositionHeader = () => {
       let playerPosition = this.props.displayPlayers
 
-      if (playerPosition == this.props.wr){
+      if (playerPosition === this.props.wr){
         return (<div><h1>Wide Receivers</h1></div>)
       }
-      else if (playerPosition == this.props.rb){
+      else if (playerPosition === this.props.rb){
         return (<div><h1>Running Backs</h1></div>)
       }
-      else if (playerPosition == this.props.qb){
+      else if (playerPosition === this.props.qb){
         return (<div><h1>Quarterbacks</h1></div>)
       }
-      else if (playerPosition == this.props.te){
+      else if (playerPosition === this.props.te){
         return (<div><h1>Tight Ends</h1></div>)
       }
-      else if (playerPosition == this.props.def){
+      else if (playerPosition === this.props.def){
         return (<div><h1>Defenses</h1></div>)
       }
-      else if (playerPosition == this.props.k){
+      else if (playerPosition === this.props.k){
         return (<div><h1>Kickers</h1></div>)
       }
       else
@@ -136,27 +137,25 @@ class Intro extends React.Component {
         </div>
       )
     }
-
-    return
   }
 }
 
 
-export const mapStateToProps = (state, props) => {
-  console.log(state, props)
+export const mapStateToProps = ({playersReducer}) => {
+  console.log(playersReducer)
   return ({
-  players: state.players,
-  qb: state.qb,
-  wr: state.wr,
-  rb: state.rb,
-  te: state.te,
-  def: state.def,
-  k: state.k,
-  loading: state.loading,
-  error: state.error,
-  displayPlayers: state.displayPlayers,
-  currentPlayer: state.currentPlayer,
-  profile: state.profile
+  players: playersReducer.players,
+  qb: playersReducer.qb,
+  wr: playersReducer.wr,
+  rb: playersReducer.rb,
+  te: playersReducer.te,
+  def: playersReducer.def,
+  k: playersReducer.k,
+  loading: playersReducer.loading,
+  error: playersReducer.error,
+  displayPlayers: playersReducer.displayPlayers,
+  currentPlayer: playersReducer.currentPlayer,
+  profile: playersReducer.profile
   })
 }
 

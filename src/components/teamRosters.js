@@ -2,9 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 class TeamRosters extends React.Component {
-  constructor(props){
-    super(props)
-  }
 
   render(){
     console.log(this.props.team1)
@@ -13,13 +10,13 @@ class TeamRosters extends React.Component {
       let myRoster = {qbs : [], wrs : [], rbs : [], tes : [], def : [], flex : [],k : [], bench : []}
       console.log(myRoster)
       for(let i=0; i< myTeam.length; i++){
-        if (myTeam[i].position == 'QB'){
+        if (myTeam[i].position === 'QB'){
           myRoster.qbs.push(myTeam[i])
           if (myRoster.qbs.length > 1){
             myRoster.bench.push(myTeam[i])
           }
         }
-        if (myTeam[i].position == 'WR'){
+        if (myTeam[i].position === 'WR'){
           myRoster.wrs.push(myTeam[i])
           if (myRoster.wrs.length > 2){
             myRoster.bench.push(myTeam[i])
@@ -28,7 +25,7 @@ class TeamRosters extends React.Component {
             }
           }
         }
-        if (myTeam[i].position == 'TE'){
+        if (myTeam[i].position === 'TE'){
           myRoster.tes.push(myTeam[i])
           if (myRoster.tes.length > 1){
             myRoster.bench.push(myTeam[i])
@@ -37,7 +34,7 @@ class TeamRosters extends React.Component {
             }
           }
         }
-        if (myTeam[i].position == 'RB'){
+        if (myTeam[i].position === 'RB'){
           myRoster.rbs.push(myTeam[i])
           if (myRoster.rbs.length > 2){
             myRoster.bench.push(myTeam[i])
@@ -46,13 +43,13 @@ class TeamRosters extends React.Component {
             }
           }
         }
-        if (myTeam[i].position == 'DEF'){
+        if (myTeam[i].position === 'DEF'){
           myRoster.def.push(myTeam[i])
           if (myRoster.def.length > 1){
             myRoster.bench.push(myTeam[i])
           }
         }
-        if (myTeam[i].position == 'K'){
+        if (myTeam[i].position ==='K'){
           myRoster.k.push(myTeam[i])
           if (myRoster.k.length > 1){
             myRoster.bench.push(myTeam[i])
@@ -69,16 +66,72 @@ class TeamRosters extends React.Component {
       console.log(newBench)
         return (
           <div className='rosterPlayers'>
-            <p><b> QB </b> { myRoster.qbs[0] ? (myRoster.qbs[0].name ? myRoster.qbs[0].name : myRoster.qbs[0].firstName + ' ' + myRoster.qbs[0].lastName ) : null } </p>
-            <p><b> WR </b> { myRoster.wrs[0] ? (myRoster.wrs[0].name ? myRoster.wrs[0].name : myRoster.wrs[0].firstName + ' ' + myRoster.wrs[0].lastName ) : null } </p>
-            <p><b> WR </b> { myRoster.wrs[1] ? (myRoster.wrs[1].name ? myRoster.wrs[1].name : myRoster.wrs[1].firstName + ' ' + myRoster.wrs[1].lastName ) : null } </p>
-            <p><b> RB </b> { myRoster.rbs[0] ? (myRoster.rbs[0].name ? myRoster.rbs[0].name : myRoster.rbs[0].firstName + ' ' + myRoster.rbs[0].lastName ) : null } </p>
-            <p><b> RB </b> { myRoster.rbs[1] ? (myRoster.rbs[1].name ? myRoster.rbs[1].name : myRoster.rbs[1].firstName + ' ' + myRoster.rbs[1].lastName ) : null } </p>
-            <p><b> TE </b> { myRoster.tes[0] ? (myRoster.tes[0].name ? myRoster.tes[0].name : myRoster.tes[0].firstName + ' ' + myRoster.tes[0].lastName ) : null } </p>
-            <p><b> FLX</b> { myRoster.flex[0] ? (myRoster.flex[0].name ? myRoster.flex[0].name : myRoster.flex[0].firstName + ' ' + myRoster.flex[0].lastName ) : null} </p>
-            <p><b> DST</b> { myRoster.def[0] ? (myRoster.def[0].name ? myRoster.def[0].name : myRoster.def[0].firstName + ' ' + myRoster.def[0].lastName ) : null } </p>
-            <p><b> K  </b> { myRoster.k[0] ? (myRoster.k[0].name ? myRoster.k[0].name : myRoster.k[0].firstName + ' ' + myRoster.k[0].lastName ) : null } </p>
+            <p><b> QB </b>
+            { myRoster.qbs[0]
+              ? (myRoster.qbs[0].name
+                ? myRoster.qbs[0].name
+                : myRoster.qbs[0].firstName + ' ' + myRoster.qbs[0].lastName )
+                : null }
+                </p>
+            <p><b> WR </b>
+            { myRoster.wrs[0]
+              ? (myRoster.wrs[0].name
+                ? myRoster.wrs[0].name
+                : myRoster.wrs[0].firstName + ' ' + myRoster.wrs[0].lastName )
+                : null }
+                </p>
+            <p><b> WR </b>
+            { myRoster.wrs[1]
+              ? (myRoster.wrs[1].name
+                ? myRoster.wrs[1].name
+                : myRoster.wrs[1].firstName + ' ' + myRoster.wrs[1].lastName )
+                : null }
+                </p>
+            <p><b> RB </b>
+            { myRoster.rbs[0]
+              ? (myRoster.rbs[0].name
+                ? myRoster.rbs[0].name
+                : myRoster.rbs[0].firstName + ' ' + myRoster.rbs[0].lastName )
+                : null }
+                </p>
+            <p><b> RB </b>
+            { myRoster.rbs[1]
+              ? (myRoster.rbs[1].name
+                ? myRoster.rbs[1].name
+                : myRoster.rbs[1].firstName + ' ' + myRoster.rbs[1].lastName )
+                : null }
+                </p>
+            <p><b> TE </b>
+            { myRoster.tes[0]
+              ? (myRoster.tes[0].name
+                ? myRoster.tes[0].name
+                : myRoster.tes[0].firstName + ' ' + myRoster.tes[0].lastName )
+                : null }
+                </p>
+            <p><b> FLX </b>
+            { myRoster.flex[0]
+              ? (myRoster.flex[0].name
+                ? myRoster.flex[0].name
+                : myRoster.flex[0].firstName + ' ' + myRoster.flex[0].lastName )
+                : null}
+                </p>
+            <p><b> DST</b>
+            { myRoster.def[0]
+              ? (myRoster.def[0].name
+                ? myRoster.def[0].name
+                : myRoster.def[0].firstName + ' ' + myRoster.def[0].lastName )
+                : null }
+                </p>
+            <p><b> K  </b>
+            { myRoster.k[0]
+              ? (myRoster.k[0].name
+                ? myRoster.k[0].name
+                : myRoster.k[0].firstName + ' ' + myRoster.k[0].lastName )
+                : null }
+                </p>
+
             <h3 style={{color:'grey', fontSize :'18px'}}> Bench </h3>
+
             <p><b> BN </b>
               { newBench[0]
               ? (newBench[0].name
@@ -129,11 +182,10 @@ class TeamRosters extends React.Component {
 }
 
 
-export const mapStateToProps = (state, props) => {
-  console.log(state, props);
+export const mapStateToProps = ({playersReducer}) => {
   return ({
-    playersUsed: state.playersUsed,
-    team1: state.team1
+    playersUsed: playersReducer.playersUsed,
+    team1: playersReducer.team1
   })
 }
 export default connect (mapStateToProps)(TeamRosters)

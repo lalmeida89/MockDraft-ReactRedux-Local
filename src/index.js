@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import reducer from './playersReducer';
+import reducer from './reducers/mainReducer';
 
 
 const middleware = [ thunk ]

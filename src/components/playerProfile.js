@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hidePlayerProfile} from '../setCurrentPlayerAction';
-import {playerDrafted} from '../draftPlayersAction'
-import {showNotes, showSchedule} from '../showActions'
+import {hidePlayerProfile} from '../actions/setCurrentPlayerAction';
+import {playerDrafted} from '../actions/draftPlayersAction'
+import {showNotes, showSchedule} from '../actions/showActions'
 
 
 function rearrangeDate(dateString) {
@@ -58,7 +58,7 @@ class PlayerProfile extends React.Component {
     else if (this.props.playerProfile){
       let profile = this.props.playerProfile;
       console.log(profile);
-      if (this.props.notes == true) {
+      if (this.props.notes === true) {
         if (profile.notes[0]){
           let newDate = profile.notes[0].timestamp.slice(0,10);
           let timePosted = rearrangeDate(newDate);
@@ -69,7 +69,7 @@ class PlayerProfile extends React.Component {
               <h3>Notes</h3>
               <p>{timePosted}</p>
               <h4>{profile.notes[0].body}</h4>
-              <p>{profile.notes[0].analysis.slice(0, 200)}...</p>
+              <p>{profile.notes[0].analysis}</p>
             </div>
 
           </div>
@@ -88,9 +88,9 @@ class PlayerProfile extends React.Component {
           )
         }
       }
-      else if (this.props.schedule == true) {
+      else if (this.props.schedule === true) {
         for(let i = 0; i < profile.weeks.length ; i++){
-          if (profile.weeks[i].opponent == false){
+          if (profile.weeks[i].opponent === false){
             profile.weeks[i].opponent = "--BYE--"
           }
         }
@@ -124,13 +124,12 @@ class PlayerProfile extends React.Component {
   }
 }
 
-export const mapStateToProps = (state, props) => {
-  console.log(state, props);
+export const mapStateToProps = ({playersReducer}) => {
   return ({
-    playerProfile: state.playerProfile,
-    team1: state.team1,
-    notes: state.notes,
-    schedule: state.schedule
+    playerProfile: playersReducer.playerProfile,
+    team1: playersReducer.team1,
+    notes: playersReducer.notes,
+    schedule: playersReducer.schedule
   })
 }
 export default connect (mapStateToProps)(PlayerProfile)
