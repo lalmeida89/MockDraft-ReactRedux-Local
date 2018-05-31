@@ -7,6 +7,8 @@ import {
   showPosition
 } from '../showActions'
 
+import {playerDrafted} from '../draftPlayersAction'
+
 
 const sort_by = (field, reverse, primer) => {
   var key = primer ?
@@ -25,11 +27,16 @@ const ShowPlayers = props => {
   props.players.sort(sort_by('rank', true, parseInt));
   let playerNames = props.players.map((player, index) => (
     <div key={index} className='playerSelector'>
-      <h3
+      <p
       onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
-      {player.firstName} {player.lastName} {player.position}
-      </h3>
+      <b>{player.firstName} {player.lastName} </b>{player.position}
+      </p>
+      <button
+      onClick={()=> props.currentId.dispatch(playerDrafted(player))}
+      className='draftBtn'>Draft
+      </button>
       <p>ADP: {player.rank}</p>
+      <hr/>
       </div>
     ))
   return <div>{playerNames}</div>
@@ -82,7 +89,7 @@ class Intro extends React.Component {
   render() {
     const PositionHeader = () => {
       let playerPosition = this.props.displayPlayers
-      
+
       if (playerPosition == this.props.wr){
         return (<div><h1>Wide Receivers</h1></div>)
       }
@@ -115,10 +122,11 @@ class Intro extends React.Component {
     }
     else {
       return (
-        <div>
+        <div className='players'>
           <button onClick={()=>this.displayAll()}>show all players </button>
           <button onClick={()=>this.displayQBS()}>show qbs </button>
           <button onClick={()=>this.displayRBS()}>show rbs </button>
+          <br/>
           <button onClick={()=>this.displayWRS()}>show wrs </button>
           <button onClick={()=>this.displayTES()}>show tes </button>
           <button onClick={()=>this.displayDEF()}>show def </button>

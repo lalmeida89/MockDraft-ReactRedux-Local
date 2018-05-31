@@ -128,7 +128,6 @@ export const mapStateToProps = (state, props) => {
   console.log(state, props);
   return ({
     playerProfile: state.playerProfile,
-    playersUsed: state.playersUsed,
     team1: state.team1,
     notes: state.notes,
     schedule: state.schedule
