@@ -82,6 +82,7 @@ class Intro extends React.Component {
   render() {
     const PositionHeader = () => {
       let playerPosition = this.props.displayPlayers
+      
       if (playerPosition == this.props.wr){
         return (<div><h1>Wide Receivers</h1></div>)
       }
@@ -93,6 +94,12 @@ class Intro extends React.Component {
       }
       else if (playerPosition == this.props.te){
         return (<div><h1>Tight Ends</h1></div>)
+      }
+      else if (playerPosition == this.props.def){
+        return (<div><h1>Defenses</h1></div>)
+      }
+      else if (playerPosition == this.props.k){
+        return (<div><h1>Kickers</h1></div>)
       }
       else
         return (<div><h1>All Players</h1></div>)
