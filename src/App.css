@@ -34,16 +34,17 @@
 
 .rostersDiv {
   position: absolute;
-  width: 300px;
+  width: 200px;
   border: 1px dashed green;
   right: 0;
   top: 100px;
-  height: 700px;
+  height: 500px;
   display: block;
 }
 
 .playerNames {
   font-size: 12px;
+  line-height: 9px;
 }
 
 .rostersDiv {
