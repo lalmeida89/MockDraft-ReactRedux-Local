@@ -2,14 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import './index.css';
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 import App from './App';
-import store from './store';
 import registerServiceWorker from './registerServiceWorker';
+import reducer from './playersReducer';
+
+
+const middleware = [ thunk ]
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger())
+}
+
+//Setup Initial State or preloaded https://redux.js.org/docs/recipes/reducers/InitializingState.html
+const store = createStore(
+  reducer,
+  applyMiddleware(...middleware)
+)
 
 ReactDOM.render(
-    <Provider store={store}>    
+    <Provider store={store}>
         <App />
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 );
 registerServiceWorker();

@@ -7,11 +7,15 @@ const initialState = {
     qb: [],
     rb: [],
     te: [],
+    def: [],
+    k: [],
     displayPlayers: [],
     currentPlayer: 0,
     playerProfile: null,
     team1: [],
-    playersUsed: []
+    playersUsed: [],
+    notes: true,
+    schedule: false
 };
 
 export default (playersState = initialState, action) => {
@@ -25,49 +29,34 @@ export default (playersState = initialState, action) => {
             wr: [...playersState.wr,...action.wr],
             te: [...playersState.te,...action.te],
             rb: [...playersState.rb,...action.rb],
-            players: [...action.wr, ...action.qb, ...action.rb, ...action.te],
-            displayPlayers: [...action.wr, ...action.qb, ...action.rb, ...action.te],
+            def: [...playersState.def, ...action.def],
+            k: [...playersState.k,...action.k],
+            players: [...playersState.players, ...action.wr, ...action.qb, ...action.rb, ...action.te, ...action.k, ...action.def],
+            displayPlayers: [...playersState.players, ...action.wr, ...action.qb, ...action.rb, ...action.te, ...action.k, ...action.def],
             loading: false,
             error: null,
             team1: playersState.team1,
             playersUsed: playersState.playersUsed
           };
-
-        case 'SHOW_QB' :
+        case 'SHOW_POSITION' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.qb,
+            displayPlayers: action.displayPlayers,
             currentPlayer: 0,
             playerProfile: null
           });
-        case 'SHOW_WR' :
+        case 'SHOW_NOTES' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.wr,
-            currentPlayer: 0,
-            playerProfile: null
-          });
-        case 'SHOW_RB' :
+            notes: true,
+            schedule: false
+        })
+        case 'SHOW_SCHEDULE' :
           console.log(action);
           return Object.assign({}, playersState, {
-            displayPlayers: playersState.rb,
-            currentPlayer: 0,
-            playerProfile: null
-          });
-        case 'SHOW_TE' :
-          console.log(action);
-          return Object.assign({}, playersState, {
-            displayPlayers: playersState.te,
-            currentPlayer: 0,
-            playerProfile: null
-          });
-        case 'SHOW_ALL' :
-          console.log(action);
-          return Object.assign({}, playersState, {
-            displayPlayers: playersState.players,
-            currentPlayer: 0,
-            playerProfile: null
-          });
+            notes: false,
+            schedule: true
+        })
         case 'FETCH_PLAYERS_ERROR':
           return {
             loading: true,
@@ -77,6 +66,8 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
+            def: playersState.def,
+            k: playersState.k,
             team1: playersState.team1,
             playersUsed: playersState.playersUsed
           };
@@ -89,6 +80,8 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
+            def: playersState.def,
+            k: playersState.k,
             team1: playersState.team1,
             playersUsed: playersState.playersUsed
           };
@@ -114,9 +107,12 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
+            def: playersState.def,
+            k: playersState.k,
             displayPlayers: playersState.displayPlayers,
             team1: playersState.team1,
-            playersUsed: playersState.playersUsed
+            playersUsed: playersState.playersUsed,
+            notes: true
           };
         case 'DRAFT_PLAYER':
           const withPlayersRemoved = playersState.players.filter(player => {
@@ -134,6 +130,12 @@ export default (playersState = initialState, action) => {
           const tePlayersRemoved = playersState.te.filter(te => {
             return te.id !== action.playersUsed[0].id
           })
+          const defPlayersRemoved = playersState.def.filter(def => {
+            return def.id !== action.playersUsed[0].id
+          })
+          const kPlayersRemoved = playersState.k.filter(k => {
+            return k.id !== action.playersUsed[0].id
+          })
           console.log(withPlayersRemoved)
           console.log(action, playersState);
           return {
@@ -143,6 +145,8 @@ export default (playersState = initialState, action) => {
             qb: qbPlayersRemoved,
             rb: rbPlayersRemoved,
             te: tePlayersRemoved,
+            def: defPlayersRemoved,
+            k: kPlayersRemoved,
             displayPlayers: withPlayersRemoved,
             team1: [...playersState.team1, ...action.team1]
           }
@@ -155,9 +159,13 @@ export default (playersState = initialState, action) => {
             qb: playersState.qb,
             rb: playersState.rb,
             te: playersState.te,
+            def: playersState.def,
+            k: playersState.k,
             playerProfile: playersState.playerProfile,
             team1: playersState.team1,
-            playersUsed: playersState.playersUsed
+            playersUsed: playersState.playersUsed,
+            notes: playersState.notes,
+            schedule: playersState.schedule
           }
         }
     return playersState;

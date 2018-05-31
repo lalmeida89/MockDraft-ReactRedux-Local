@@ -4,11 +4,7 @@ import {connect} from 'react-redux';
 import {fetchPlayers} from '../fetchAction'
 import {getPlayerProfile} from '../setCurrentPlayerAction'
 import {
-  showQB,
-  showRB,
-  showWR,
-  showTE,
-  showAll
+  showPosition
 } from '../showActions'
 
 
@@ -48,27 +44,36 @@ class Intro extends React.Component {
   }
 
   displayQBS = () => {
-    this.props.dispatch(showQB(this.props.qb));
+    this.props.dispatch(showPosition(this.props.qb));
     console.log('fucking work god damn it')
   }
 
   displayRBS = () => {
-    this.props.dispatch(showRB(this.props.rb));
+    this.props.dispatch(showPosition(this.props.rb));
     console.log('fucking work god damn it')
   }
 
   displayWRS = () => {
-    this.props.dispatch(showWR(this.props.wr));
+    this.props.dispatch(showPosition(this.props.wr));
     console.log('fucking work god damn it')
   }
 
   displayTES = () => {
-    this.props.dispatch(showTE(this.props.te));
+    this.props.dispatch(showPosition(this.props.te));
+    console.log(this.props, 'fucking work god damn it')
+  }
+  displayDEF = () => {
+    this.props.dispatch(showPosition(this.props.def));
+    console.log('fucking work god damn it')
+  }
+
+  displayK = () => {
+    this.props.dispatch(showPosition(this.props.k));
     console.log(this.props, 'fucking work god damn it')
   }
 
   displayAll = () => {
-    this.props.dispatch(showAll(this.props.players));
+    this.props.dispatch(showPosition(this.props.players));
     console.log(this.props, 'fucking work god damn it')
   }
 
@@ -109,6 +114,8 @@ class Intro extends React.Component {
           <button onClick={()=>this.displayRBS()}>show rbs </button>
           <button onClick={()=>this.displayWRS()}>show wrs </button>
           <button onClick={()=>this.displayTES()}>show tes </button>
+          <button onClick={()=>this.displayDEF()}>show def </button>
+          <button onClick={()=>this.displayK()}>show k </button>
           <PositionHeader />
           <ShowPlayers players={this.props.displayPlayers} currentId={this.props} />
         </div>
@@ -128,6 +135,8 @@ export const mapStateToProps = (state, props) => {
   wr: state.wr,
   rb: state.rb,
   te: state.te,
+  def: state.def,
+  k: state.k,
   loading: state.loading,
   error: state.error,
   displayPlayers: state.displayPlayers,

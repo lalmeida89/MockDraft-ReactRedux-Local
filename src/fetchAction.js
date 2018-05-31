@@ -2,14 +2,16 @@
 export const loadPlayers = formattedRespObj => ({
     type: 'FETCH_PLAYERS_SUCCESS',
     players: [...formattedRespObj.players],
-    wr: [...formattedRespObj.wr],
+    wr: formattedRespObj.wr,
     qb: formattedRespObj.qb,
     rb: formattedRespObj.rb,
-    te: formattedRespObj.te
+    te: formattedRespObj.te,
+    def: formattedRespObj.def,
+    k: formattedRespObj.k
 });
 
 function formatRespObj(playersResp) {
-    let formattedRespObj = {players: [], wr: [], qb: [], rb: [], te: []};
+    let formattedRespObj = {players: [], wr: [], qb: [], rb: [], te: [], def: [], k: []};
 
     // Note, this can probably be prettier
     for (let i = 0; i < playersResp.length; i++) {
@@ -27,20 +29,37 @@ function formatRespObj(playersResp) {
             case 'TE':
                 formattedRespObj.te.push(playersResp[i]);
                 break;
+            case 'DEF':
+                formattedRespObj.def.push(playersResp[i]);
+                break;
+            case 'K':
+                formattedRespObj.k.push(playersResp[i]);
+                break;
             default:
                 break;
         }
     }
 
-    formattedRespObj.players = [...formattedRespObj.wr, ...formattedRespObj.qb, ...formattedRespObj.rb, ...formattedRespObj.te];
-    //formattedRespObj.players = { wr: formattedRespObj.wr,}
+    formattedRespObj.players = [
+      ...formattedRespObj.wr,
+      ...formattedRespObj.qb,
+      ...formattedRespObj.rb,
+      ...formattedRespObj.te,
+      ...formattedRespObj.def,
+      ...formattedRespObj.k
+    ];
     return formattedRespObj;
 }
 
 export const fetchPlayers = () => {
     return dispatch => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const urls = ["http://api.fantasy.nfl.com/v1/players/editordraftranks?count=100&format=json", "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json"];
+        const urls = [
+          "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=100&format=json",
+          "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json",
+          "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=300&offset=200&format=json",
+          "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=400&offset=300&format=json"
+        ];
         //const url2="http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json"; // site that doesn’t send Access-Control-*
         dispatch(fetchPlayersRequest())
         urls.map(url=> {

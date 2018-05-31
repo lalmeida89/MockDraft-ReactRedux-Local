@@ -4,7 +4,7 @@
 
 .playerCard {
   position: fixed;
-  margin: 15% auto 0;
+  margin: 0 auto ;
   z-index: 99;
   background-color: white;
   border: 3px solid black;
@@ -44,6 +44,10 @@
 
 .rostersDiv {
   list-style: none;
+}
+
+.schedule {
+  line-height: 3px;
 }
 
 .App {
