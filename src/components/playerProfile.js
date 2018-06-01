@@ -124,10 +124,10 @@ class PlayerProfile extends React.Component {
   }
 }
 
-export const mapStateToProps = ({playersReducer}) => {
+export const mapStateToProps = ({playersReducer, teamReducer}) => {
   return ({
     playerProfile: playersReducer.playerProfile,
-    team1: playersReducer.team1,
+    team1: teamReducer.team1,
     notes: playersReducer.notes,
     schedule: playersReducer.schedule
   })

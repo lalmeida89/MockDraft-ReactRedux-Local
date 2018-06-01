@@ -182,10 +182,11 @@ class TeamRosters extends React.Component {
 }
 
 
-export const mapStateToProps = ({playersReducer}) => {
+export const mapStateToProps = ({teamReducer}) => {
+  console.log(teamReducer);
   return ({
-    playersUsed: playersReducer.playersUsed,
-    team1: playersReducer.team1
+    playersUsed: teamReducer.playersUsed,
+    team1: teamReducer.team1
   })
 }
 export default connect (mapStateToProps)(TeamRosters)
