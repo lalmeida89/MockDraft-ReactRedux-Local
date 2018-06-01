@@ -10,6 +10,11 @@ export const loadPlayers = formattedRespObj => ({
     k: formattedRespObj.k
 });
 
+/*Our fetch response just gives us an array of players (and sometimes defensive players which we dont want)
+so we reformat the response for the players based on their position and push them onto arrays. we then
+refer back to these players on FETCH SUCCESS 
+*/
+
 function formatRespObj(playersResp) {
     let formattedRespObj = {players: [], wr: [], qb: [], rb: [], te: [], def: [], k: []};
 
@@ -51,6 +56,9 @@ function formatRespObj(playersResp) {
     return formattedRespObj;
 }
 
+/* Fetch from the NFL API. Their ADP (average draft position) url only sends back 100 players at a time,
+so we map through the fetch with offsets of 100 each time and combine them all */
+
 export const fetchPlayers = () => {
     return dispatch => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -60,7 +68,6 @@ export const fetchPlayers = () => {
           "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=300&offset=200&format=json",
           "http://api.fantasy.nfl.com/v1/players/editordraftranks?count=400&offset=300&format=json"
         ];
-        //const url2="http://api.fantasy.nfl.com/v1/players/editordraftranks?count=200&offset=100&format=json"; // site that doesn’t send Access-Control-*
         dispatch(fetchPlayersRequest())
         urls.map(url=> {
             fetch(proxyurl + url)
@@ -70,7 +77,6 @@ export const fetchPlayers = () => {
                     let formattedRespObj = formatRespObj(response.players);
                     dispatch(loadPlayers(formattedRespObj));
                     console.log('success:', formattedRespObj);
-                //dispatch(fetchPlayersSuccess(response.players))
                 })
                 .catch(error => {
                     console.error('Error:', error);

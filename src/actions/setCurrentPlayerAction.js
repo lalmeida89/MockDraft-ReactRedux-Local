@@ -17,6 +17,10 @@ export const setPlayerProfile = profile => {
   };
 }
 
+/* To get full detailed information about a player we need to run a second fetch using their ID from the
+initial fetch. The response will be an array of just one player so we dispatch our setPlayerProfile action
+on the first player in the array. We can then use all of the information to create a profile of that player*/
+
 export function getPlayerProfile(id) {
   return dispatch => {
     let idUrl = dispatch(setCurrentPlayer(id))

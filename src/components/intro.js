@@ -28,14 +28,15 @@ const ShowPlayers = props => {
   props.players.sort(sort_by('rank', true, parseInt));
   let playerNames = props.players.map((player, index) => (
     <div key={index} className='playerSelector'>
+      <button
+      style={{float : 'right', marginTop: '10px'}}
+      onClick={()=> props.currentId.dispatch(playerDrafted(player))}
+      className='draftBtn'>Draft
+      </button>
       <p
       onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
       <b>{player.firstName} {player.lastName} </b>{player.position}
       </p>
-      <button
-      onClick={()=> props.currentId.dispatch(playerDrafted(player))}
-      className='draftBtn'>Draft
-      </button>
       <p>ADP: {player.rank}</p>
       <hr/>
       </div>
@@ -51,38 +52,8 @@ class Intro extends React.Component {
     this.props.dispatch(fetchPlayers())
   }
 
-  displayQBS = () => {
-    this.props.dispatch(showPosition(this.props.qb));
-    console.log('fucking work god damn it')
-  }
-
-  displayRBS = () => {
-    this.props.dispatch(showPosition(this.props.rb));
-    console.log('fucking work god damn it')
-  }
-
-  displayWRS = () => {
-    this.props.dispatch(showPosition(this.props.wr));
-    console.log('fucking work god damn it')
-  }
-
-  displayTES = () => {
-    this.props.dispatch(showPosition(this.props.te));
-    console.log(this.props, 'fucking work god damn it')
-  }
-  displayDEF = () => {
-    this.props.dispatch(showPosition(this.props.def));
-    console.log('fucking work god damn it')
-  }
-
-  displayK = () => {
-    this.props.dispatch(showPosition(this.props.k));
-    console.log(this.props, 'fucking work god damn it')
-  }
-
-  displayAll = () => {
-    this.props.dispatch(showPosition(this.props.players));
-    console.log(this.props, 'fucking work god damn it')
+  displayPosition = position => {
+    this.props.dispatch(showPosition(position))
   }
 
 
@@ -124,14 +95,14 @@ class Intro extends React.Component {
     else {
       return (
         <div className='players'>
-          <button onClick={()=>this.displayAll()}>show all players </button>
-          <button onClick={()=>this.displayQBS()}>show qbs </button>
-          <button onClick={()=>this.displayRBS()}>show rbs </button>
+          <button onClick={()=>this.displayPosition(this.props.players)}>show all players </button>
+          <button onClick={()=>this.displayPosition(this.props.qb)}>show qbs </button>
+          <button onClick={()=>this.displayPosition(this.props.rb)}>show rbs </button>
           <br/>
-          <button onClick={()=>this.displayWRS()}>show wrs </button>
-          <button onClick={()=>this.displayTES()}>show tes </button>
-          <button onClick={()=>this.displayDEF()}>show def </button>
-          <button onClick={()=>this.displayK()}>show k </button>
+          <button onClick={()=>this.displayPosition(this.props.wr)}>show wrs </button>
+          <button onClick={()=>this.displayPosition(this.props.te)}>show tes </button>
+          <button onClick={()=>this.displayPosition(this.props.def)}>show def </button>
+          <button onClick={()=>this.displayPosition(this.props.k)}>show k </button>
           <PositionHeader />
           <ShowPlayers players={this.props.displayPlayers} currentId={this.props} />
         </div>
