@@ -56,8 +56,6 @@ class Intro extends React.Component {
     this.props.dispatch(showPosition(position))
   }
 
-
-
   render() {
     const PositionHeader = () => {
       let playerPosition = this.props.displayPlayers

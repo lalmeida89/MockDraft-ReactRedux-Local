@@ -5,12 +5,22 @@ the state to be that team array. all of the players drafted will be merged onto 
 export const draftPlayer = teamPicksObj => ({
   type: DRAFT_PLAYER,
   team1: teamPicksObj.team1,
+  team2: teamPicksObj.team2,
   playersUsed: teamPicksObj.team1
 })
 
 export const teamPicks = player => {
-  let teamPicksObj = {team1 : []}
-  teamPicksObj.team1.push(player)
+  let teamPicksObj = {team1 : [], team2 : []}
+  let team1 = teamPicksObj.team1;
+  let team2 = teamPicksObj.team2;
+  team1.push(player)/*
+  if (team1.length === team2.length){
+    team1.push(player)
+  }
+  if (team1.length > team2.length){
+    team2.push(player)
+  }*/
+  console.log(teamPicksObj)
   return teamPicksObj
 }
 
