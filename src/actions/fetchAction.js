@@ -12,7 +12,7 @@ export const loadPlayers = formattedRespObj => ({
 
 /*Our fetch response just gives us an array of players (and sometimes defensive players which we dont want)
 so we reformat the response for the players based on their position and push them onto arrays. we then
-refer back to these players on FETCH SUCCESS 
+refer back to these players on FETCH SUCCESS
 */
 
 function formatRespObj(playersResp) {
@@ -52,7 +52,7 @@ function formatRespObj(playersResp) {
       ...formattedRespObj.te,
       ...formattedRespObj.def,
       ...formattedRespObj.k
-    ];
+    ]
     return formattedRespObj;
 }
 

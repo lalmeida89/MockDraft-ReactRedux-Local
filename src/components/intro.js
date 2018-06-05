@@ -1,13 +1,16 @@
 import React  from 'react';
 import {connect} from 'react-redux';
+import PlayerProfile from './playerProfile'
 
 import {fetchPlayers} from '../actions/fetchAction'
 import {getPlayerProfile} from '../actions/setCurrentPlayerAction'
 import {
-  showPosition
+  showPosition,
+  showMenu,
+  hideMenu
 } from '../actions/showActions'
-
-import {playerDrafted} from '../actions/draftPlayersAction'
+import {playerDrafted} from '../actions/draftPlayersAction';
+import {Button} from '../styledComponents/dropdown'
 
 
 
@@ -27,21 +30,28 @@ const ShowPlayers = props => {
   console.log(props)
   props.players.sort(sort_by('rank', true, parseInt));
   let playerNames = props.players.map((player, index) => (
-    <div key={index} className='playerSelector'>
+    <div>
+      <div key={index} className='playerSelector'>
       <button
       style={{float : 'right', marginTop: '10px'}}
       onClick={()=> props.currentId.dispatch(playerDrafted(player))}
       className='draftBtn'>Draft
       </button>
-      <p
+      <p><b> {player.firstName} {player.lastName} </b> <i
+      className="far fa-file-alt"
       onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
-      <b>{player.firstName} {player.lastName} </b>{player.position}
-      </p>
-      <p>ADP: {player.rank}</p>
+      </i></p>
       <hr/>
-      </div>
-    ))
-  return <div>{playerNames}</div>
+    </div>
+    { player.id === props.currentId.currentPlayer ?
+    <PlayerProfile /> : null }
+    </div>
+    )
+  )
+  return (
+    <div>
+    {playerNames}
+    </div>)
 }
 
 
@@ -53,7 +63,18 @@ class Intro extends React.Component {
   }
 
   displayPosition = position => {
-    this.props.dispatch(showPosition(position))
+    this.props.dispatch(showPosition(position));
+    this.closeMenu();
+  }
+
+  displayMenu = () => {
+    this.props.dispatch(showMenu());
+    console.log(this.props.menu);
+  }
+
+  closeMenu = () => {
+    this.props.dispatch(hideMenu());
+    console.log(this.props.menu);
   }
 
   render() {
@@ -61,25 +82,25 @@ class Intro extends React.Component {
       let playerPosition = this.props.displayPlayers
 
       if (playerPosition === this.props.wr){
-        return (<div><h1>Wide Receivers</h1></div>)
+        return (<div> Wide Receivers { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else if (playerPosition === this.props.rb){
-        return (<div><h1>Running Backs</h1></div>)
+        return (<div> Running Backs { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else if (playerPosition === this.props.qb){
-        return (<div><h1>Quarterbacks</h1></div>)
+        return (<div> Quarterbacks { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else if (playerPosition === this.props.te){
-        return (<div><h1>Tight Ends</h1></div>)
+        return (<div> Tight Ends { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else if (playerPosition === this.props.def){
-        return (<div><h1>Defenses</h1></div>)
+        return (<div> DST { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else if (playerPosition === this.props.k){
-        return (<div><h1>Kickers</h1></div>)
+        return (<div> Kickers { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
       }
       else
-        return (<div><h1>All Players</h1></div>)
+        return (<div> All Players { this.props.menu ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i> }</div>)
     }
 
     const { error, loading } = this.props;
@@ -93,15 +114,27 @@ class Intro extends React.Component {
     else {
       return (
         <div className='players'>
-          <button onClick={()=>this.displayPosition(this.props.players)}>show all players </button>
-          <button onClick={()=>this.displayPosition(this.props.qb)}>show qbs </button>
-          <button onClick={()=>this.displayPosition(this.props.rb)}>show rbs </button>
-          <br/>
-          <button onClick={()=>this.displayPosition(this.props.wr)}>show wrs </button>
-          <button onClick={()=>this.displayPosition(this.props.te)}>show tes </button>
-          <button onClick={()=>this.displayPosition(this.props.def)}>show def </button>
-          <button onClick={()=>this.displayPosition(this.props.k)}>show k </button>
-          <PositionHeader />
+          <h1> Players Available </h1>
+          <div className='dropdwnMenu'>
+            <Button onClick={()=> this.props.menu
+              ? this.closeMenu()
+              : this.displayMenu()}>
+              <PositionHeader />
+            </Button>
+              { this.props.menu ? (
+              <div className='positionBtn'>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.players)}> Show All </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.qb)}> Quarterbacks </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.rb)}> Running Backs </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.wr)}> Wide Receivers </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.te)}> Tight Ends </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.def)}> DST </Button>
+                <Button dropBtn onClick={()=>this.displayPosition(this.props.k)}> Kickers </Button>
+              </div>
+              )
+              : null
+            }
+          </div>
           <ShowPlayers players={this.props.displayPlayers} currentId={this.props} />
         </div>
       )
@@ -124,7 +157,8 @@ export const mapStateToProps = ({playersReducer}) => {
   error: playersReducer.error,
   displayPlayers: playersReducer.displayPlayers,
   currentPlayer: playersReducer.currentPlayer,
-  profile: playersReducer.profile
+  profile: playersReducer.profile,
+  menu: playersReducer.menu
   })
 }
 

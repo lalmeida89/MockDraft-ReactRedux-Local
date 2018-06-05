@@ -1,6 +1,8 @@
 export const SHOW_POSITION = 'SHOW_POSITION';
-export const SHOW_NOTES = 'SHOW_NOTES'
-export const SHOW_SCHEDULE = 'SHOW_SCHEDULE'
+export const SHOW_NOTES = 'SHOW_NOTES';
+export const SHOW_SCHEDULE = 'SHOW_SCHEDULE';
+export const SHOW_MENU = 'SHOW_MENU'
+export const HIDE_MENU = 'HIDE_MENU'
 
 /* Depending on the button click on the intro component, we can filter what position we'd like to see,
 setting the props to be the displayPlayers and then rendering the displayPlayers. Notes and Schedules just
@@ -21,4 +23,14 @@ export const showNotes = notes => ({
 export const showSchedule = schedule => ({
   type: SHOW_SCHEDULE,
   schedule
+})
+
+export const showMenu = menu => ({
+  type: SHOW_MENU,
+  menu
+})
+
+export const hideMenu = menu => ({
+  type: HIDE_MENU,
+  menu
 })

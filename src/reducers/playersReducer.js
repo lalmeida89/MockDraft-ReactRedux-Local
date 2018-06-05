@@ -10,10 +10,11 @@ const initialState = {
     def: [],
     k: [],
     displayPlayers: [],
-    currentPlayer: 0,
+    currentPlayer: null,
     playerProfile: null,
     notes: true,
-    schedule: false
+    schedule: false,
+    menu: false
 };
 
 export default (playersState = initialState, action) => {
@@ -32,7 +33,9 @@ export default (playersState = initialState, action) => {
             players: [...playersState.players, ...action.wr, ...action.qb, ...action.rb, ...action.te, ...action.k, ...action.def],
             displayPlayers: [...playersState.players, ...action.wr, ...action.qb, ...action.rb, ...action.te, ...action.k, ...action.def],
             loading: false,
-            error: null
+            error: null,
+            menu: playersState.menu,
+            currentPlayer: playersState.currentPlayer
           };
         case 'SHOW_POSITION' :
           console.log(action);
@@ -46,7 +49,17 @@ export default (playersState = initialState, action) => {
           return Object.assign({}, playersState, {
             notes: true,
             schedule: false
-        })
+        });
+        case 'SHOW_MENU' :
+          console.log(action);
+          return Object.assign({}, playersState, {
+            menu: true
+        });
+        case 'HIDE_MENU' :
+          console.log(action);
+          return Object.assign({}, playersState, {
+            menu: false
+        });
         case 'SHOW_SCHEDULE' :
           console.log(action);
           return Object.assign({}, playersState, {
@@ -63,7 +76,9 @@ export default (playersState = initialState, action) => {
             rb: playersState.rb,
             te: playersState.te,
             def: playersState.def,
-            k: playersState.k
+            k: playersState.k,
+            menu: playersState.menu,
+            currentPlayer: playersState.currentPlayer
           };
         case 'FETCH_PLAYERS_REQUEST':
           return {
@@ -75,7 +90,9 @@ export default (playersState = initialState, action) => {
             rb: playersState.rb,
             te: playersState.te,
             def: playersState.def,
-            k: playersState.k
+            k: playersState.k,
+            menu: playersState.menu,
+            currentPlayer: playersState.currentPlayer
           };
         case 'SET_CURRENT_PLAYER':
           console.log(action);
@@ -102,7 +119,9 @@ export default (playersState = initialState, action) => {
             def: playersState.def,
             k: playersState.k,
             displayPlayers: playersState.displayPlayers,
-            notes: true
+            notes: true,
+            menu: playersState.menu,
+            currentPlayer: playersState.currentPlayer
           };
         case 'DRAFT_PLAYER':
           const withPlayersRemoved = playersState.players.filter(player => {
@@ -151,7 +170,9 @@ export default (playersState = initialState, action) => {
             k: playersState.k,
             playersUsed: playersState.playersUsed,
             notes: playersState.notes,
-            schedule: playersState.schedule
+            schedule: playersState.schedule,
+            menu: playersState.menu,
+            currentPlayer: playersState.currentPlayer
           }
         }
 }

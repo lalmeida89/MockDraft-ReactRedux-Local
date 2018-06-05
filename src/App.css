@@ -1,17 +1,50 @@
+* {
+  padding-left: 0;
+}
+
 .postSelector {
   cursor: pointer;
 }
 
+
 .playerCard {
-  position: fixed;
-  margin: 0 auto ;
+	position: absolute;
+	background: #f5f5f5;
+	border: 1px solid #63737d;
   z-index: 99;
-  background-color: white;
-  border: 2px solid #80808054;
-  border-radius: 3px;
-  width: 95.5%;
-  padding: 10px 100px 10px 20px;
+  width: 300px;
+  height: contain;
+  left: 165px;
+  font-size: 10px;
+  border-radius: 8px;
+  padding: 5px;
 }
+
+.playerCard:after, .playerCard:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.playerCard:after {
+	border-color: rgba(245, 245, 245, 0);
+	border-bottom-color: #f5f5f5;
+	border-width: 8px;
+	margin-left: -8px;
+}
+
+.playerCard:before {
+	border-color: rgba(99, 115, 125, 0);
+	border-bottom-color: #63737d;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
 
 .draftBtn {
   display: inline-block;
@@ -21,6 +54,7 @@
   height: 25px;
   width: 50px;
   font-size: 14px;
+  padding: 2px;
 }
 
 .playerName {
@@ -29,9 +63,13 @@
 }
 
 .playerSelector {
-  cursor: pointer;
   font-size: 13px;
   padding: 5px 10px;
+  height: 30px;
+}
+
+.fa-file-alt {
+  cursor: pointer;
 }
 
 .rostersDiv {
@@ -54,6 +92,25 @@
 
 .players {
   width: 400px;
+  margin-left: 25%;
+}
+
+
+.positionBtn {
+  position: fixed;
+  z-index: 99;
+  background-color: white;
+  width: 125px;
+}
+
+.fa-chevron-up, .fa-chevron-down {
+  float: right;
+  background-color: #b7b7b77a;
+}
+
+.dropdwnMenu {
+  padding-left: 10px;
+  width: 125px;
 }
 
 .rostersDiv {
@@ -67,29 +124,4 @@
 .App {
   width: 100%;
   margin: auto;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
