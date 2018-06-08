@@ -30,28 +30,27 @@ const ShowPlayers = props => {
   console.log(props)
   props.players.sort(sort_by('rank', true, parseInt));
   let playerNames = props.players.map((player, index) => (
-    <div>
-      <div key={index} className='playerSelector'>
-      <button
-      style={{float : 'right', marginTop: '10px'}}
-      onClick={()=> props.currentId.dispatch(playerDrafted(player))}
-      className='draftBtn'>Draft
-      </button>
-      <p><b> {player.firstName} {player.lastName} </b> <i
-      className="far fa-file-alt"
-      onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
-      </i></p>
-      <hr/>
-    </div>
+    <div key={index} className='playerSelector'>
+    <button
+    style={{float : 'right', marginTop: '10px'}}
+    onClick={()=> props.currentId.dispatch(playerDrafted(player))}
+    className='draftBtn'>Draft
+    </button>
+    <p><b> {player.firstName} {player.lastName} </b>
+    <i className="far fa-file-alt"
+    onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
+    </i></p>
     { player.id === props.currentId.currentPlayer ?
     <PlayerProfile /> : null }
+    <hr/>
     </div>
     )
   )
   return (
     <div>
     {playerNames}
-    </div>)
+    </div>
+  )
 }
 
 
@@ -106,15 +105,15 @@ class Intro extends React.Component {
     const { error, loading } = this.props;
 
     if(error) {
-      return <div> ERROR! {error.message}</div>;
+      return <div className='players'> ERROR! {error.message}</div>;
     }
     if(loading) {
-      return <div> LOADING... </div>;
+      return <div className='players'> LOADING... </div>;
     }
     else {
       return (
         <div className='players'>
-          <h1> Players Available </h1>
+          <h1 style={{textAlign: 'center'}}> Players Available </h1>
           <div className='dropdwnMenu'>
             <Button onClick={()=> this.props.menu
               ? this.closeMenu()

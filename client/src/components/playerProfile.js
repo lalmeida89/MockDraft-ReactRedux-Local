@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {hidePlayerProfile} from '../actions/setCurrentPlayerAction';
-import {playerDrafted} from '../actions/draftPlayersAction'
 import {showNotes, showSchedule} from '../actions/showActions'
 
 
@@ -24,13 +23,19 @@ class PlayerProfile extends React.Component {
   }
 
   render(){
+    let style = {
+      float:'right',
+      cursor: 'pointer',
+      fontSize: '16px',
+      marginTop: '0'
+    }
+
     const PlayerHeader = () => {
       if(this.props.playerProfile){
-        let profile = this.props.playerProfile;
         return (
           <div className='playrHedr'>
             <p onClick={()=>this.props.dispatch(hidePlayerProfile())}
-            style={{float:'right', cursor: 'pointer'}}>X</p>
+            style={style}><b>x</b></p>
             <div className='infoSelector'>
               <button onClick={()=> this.renderNotes()}> Notes </button>
               <button onClick={()=> this.renderSchedule()}> Schedule </button>
