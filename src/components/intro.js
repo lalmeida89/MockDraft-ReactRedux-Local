@@ -1,6 +1,6 @@
 import React  from 'react';
 import {connect} from 'react-redux';
-import PlayerProfile from './playerProfile'
+/*import PlayerProfile from './playerProfile'
 
 import {fetchPlayers} from '../actions/fetchAction'
 import {getPlayerProfile} from '../actions/setCurrentPlayerAction'
@@ -10,8 +10,20 @@ import {
   hideMenu
 } from '../actions/showActions'
 import {playerDrafted} from '../actions/draftPlayersAction';
-import {Button} from '../styledComponents/dropdown'
+import {Button} from '../styledComponents/dropdown'*/
+import {Players} from './players'
 
+const wrArray = [];
+const rbArray = [];
+const qbArray = [];
+const teArray = [];
+const dstArray = [];
+const kickArray = [];
+const wr_rbArray = [];
+const wr_teArray = [];
+const rb_teArray = [];
+const wr_rb_teArray = [];
+const qb_wr_rb_teArray= [];
 
 
 const sort_by = (field, reverse, primer) => {
@@ -26,23 +38,13 @@ const sort_by = (field, reverse, primer) => {
     }
 }
 
-const ShowPlayers = props => {
-  console.log(props)
-  props.players.sort(sort_by('rank', true, parseInt));
-  let playerNames = props.players.map((player, index) => (
+const ShowPlayers = () => {
+  Players.sort(sort_by('rank', true, parseInt));
+  let playerNames = Players.map((player, index) => (
     <div key={index} className='playerSelector'>
-    <button
-    style={{float : 'right', marginTop: '10px'}}
-    onClick={()=> props.currentId.dispatch(playerDrafted(player))}
-    className='draftBtn'>Draft
-    </button>
-    <p><b> {player.firstName} {player.lastName} </b>
-    <i className="far fa-file-alt"
-    onClick={()=> props.currentId.dispatch(getPlayerProfile(player.id))}>
-    </i></p>
-    { player.id === props.currentId.currentPlayer ?
-    <PlayerProfile /> : null }
-    <hr/>
+      <p><b> {player.firstName} {player.lastName} </b>
+      <i className="far fa-file-alt"></i></p>
+      <hr/>
     </div>
     )
   )
@@ -55,29 +57,57 @@ const ShowPlayers = props => {
 
 
 
-class Intro extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
-    this.props.dispatch(fetchPlayers())
+export default class Intro extends React.Component {
+  componentDidMount(){
+    this.sortPositions()
   }
 
-  displayPosition = position => {
-    this.props.dispatch(showPosition(position));
-    this.closeMenu();
+  sortPositions = () => {
+    for(let i=0; i< Players.length; i++){
+      if(Players[i].position == 'WR'){
+        wrArray.push(Players[i]);
+        wr_rbArray.push(Players[i]);
+        wr_teArray.push(Players[i]);
+        wr_rb_teArray.push(Players[i]);
+        qb_wr_rb_teArray.push(Players[i]);
+      }
+      else if(Players[i].position == 'RB'){
+        rbArray.push(Players[i]);
+        wr_rbArray.push(Players[i]);
+        rb_teArray.push(Players[i]);
+        wr_rb_teArray.push(Players[i]);
+        qb_wr_rb_teArray.push(Players[i]);
+      }
+      else if(Players[i].position == 'QB'){
+        qbArray.push(Players[i]);
+        qb_wr_rb_teArray.push(Players[i]);
+      }
+      else if(Players[i].position == 'TE'){
+        teArray.push(Players[i]);
+        wr_teArray.push(Players[i]);
+        rb_teArray.push(Players[i]);
+        wr_rb_teArray.push(Players[i]);
+      }
+      else if(Players[i].position == 'DEF'){
+        dstArray.push(Players[i]);
+      }
+      else if(Players[i].position == 'K'){
+        kickArray.push(Players[i]);
+      }
+    }
   }
 
-  displayMenu = () => {
-    this.props.dispatch(showMenu());
-    console.log(this.props.menu);
-  }
+  /*showPosition = position => {
+    for(let i=0; i < Players.length; i++){
+      if(Players[i].position == 'RB'){
 
-  closeMenu = () => {
-    this.props.dispatch(hideMenu());
-    console.log(this.props.menu);
-  }
+      }
+    }
+  }*/
 
   render() {
-    const PositionHeader = () => {
+
+    /*const PositionHeader = () => {
       let playerPosition = this.props.displayPlayers
 
       if (playerPosition === this.props.wr){
@@ -110,39 +140,18 @@ class Intro extends React.Component {
     if(loading) {
       return <div className='players'> LOADING... </div>;
     }
-    else {
+    else { */
       return (
         <div className='players'>
           <h1 style={{textAlign: 'center'}}> Players Available </h1>
-          <div className='dropdwnMenu'>
-            <Button onClick={()=> this.props.menu
-              ? this.closeMenu()
-              : this.displayMenu()}>
-              <PositionHeader />
-            </Button>
-              { this.props.menu ? (
-              <div className='positionBtn'>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.players)}> Show All </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.qb)}> Quarterbacks </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.rb)}> Running Backs </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.wr)}> Wide Receivers </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.te)}> Tight Ends </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.def)}> DST </Button>
-                <Button dropBtn onClick={()=>this.displayPosition(this.props.k)}> Kickers </Button>
-              </div>
-              )
-              : null
-            }
-          </div>
-          <ShowPlayers players={this.props.displayPlayers} currentId={this.props} />
+          <ShowPlayers />
         </div>
       )
-    }
   }
 }
 
 
-export const mapStateToProps = ({playersReducer}) => {
+/*export const mapStateToProps = ({playersReducer}) => {
   console.log(playersReducer)
   return ({
   players: playersReducer.players,
@@ -162,4 +171,4 @@ export const mapStateToProps = ({playersReducer}) => {
 }
 
 
-export default connect(mapStateToProps)(Intro);
+export default connect(mapStateToProps)(Intro);*/

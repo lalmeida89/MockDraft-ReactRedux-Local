@@ -2,6 +2,34 @@
   padding-left: 0;
 }
 
+.draftDetails {
+  z-index: 999;
+  position: fixed;
+  margin: auto;
+  width: 100%;
+  display: inline-block;
+  top: 100px;
+  background-color: white;
+}
+
+.scoringRules,
+.draftType,
+.countAndOrder,
+.mainStarters,
+.flexPlayers,
+.finalThree {
+  float: left;
+  margin-right: 20px;
+}
+
+.topHalf {
+  height: 100px;
+}
+
+.scoringRules label, .draftType label{
+  display: block;
+}
+
 .postSelector {
   cursor: pointer;
 }
